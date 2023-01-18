@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, TextInput, Picker } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Import helper code
@@ -12,26 +12,21 @@ import { TextParagraph, TextH1, TextH2, TextLabel } from '../components/StyledTe
 import Styles from '../styles/MainStyle';
 import { MyButton } from '../components/MyButton';
 
-export default function ViewPersonScreen(props) {
-
-	// Set up a default Person object
-	const personTemplate = {
-		id: 0,
-		name: "DEFAULT",
-		phone: "",
-		departmentId: "",
-		street: "",
-		city: "",
-		state: "",
-		zip: "",
-		country: "",
-		department: null
-	};
+export default function EditPersonScreen(props) {
 
 	// State - data for this component
 
 	// Store person in state
-	const [person, setPerson] = React.useState(personTemplate)
+	const [id, setId] = React.useState(-1);
+	const [name, setName] = React.useState("");
+	const [nameOriginal, setNameOriginal] = React.useState("");
+	const [phone, setPhone] = React.useState("");
+	const [departmentId, setDepartmentId] = React.useState(0);
+	const [street, setStreet] = React.useState("");
+	const [city, setCity] = React.useState("");
+	const [state, setState] = React.useState("");
+	const [zip, setZip] = React.useState("");
+	const [country, setCountry] = React.useState("");
 
 	// Set "effect" to retrieve and store data - only run on mount/unmount (loaded/unloaded)
 	// "effectful" code is something that triggers a UI re-render
@@ -46,9 +41,19 @@ export default function ViewPersonScreen(props) {
 		// Get data from the API
 		RoiGetPerson(id)
 		  // Success
-		  .then(data => {
+		  .then(p => {
 			// Store results in state variable (if data returned)
-			if (data) setPerson(data)
+			if (p) {
+				setId(p.id);
+				setName(p.name);
+				setNameOriginal(p.name);
+				setDepartmentId(p.departmentId);
+				setStreet(p.street);
+				setCity(p.city);
+				setState(p.state);
+				setZip(p.zip);
+				setCountry(p.country);
+			}
 		  })
 		  // Error
 		  .catch(error => {
@@ -61,11 +66,11 @@ export default function ViewPersonScreen(props) {
 		  })
 	}
 
-	function showEditPerson() {
-		props.navigation.navigate("EditPerson", {id: person.id})
+	function showAddPerson() {
+		console.log("show add person...");
 	}
 
-	// Delete person
+	// Save person
 	function deletePerson(){
 
 		// Check if person should be deleted (confirm with user)
@@ -103,7 +108,7 @@ export default function ViewPersonScreen(props) {
 	<SafeAreaView style={Styles.safeAreaView}>
 		<ScrollView style={Styles.container} contentContainerStyle={Styles.contentContainer}>
 
-			<TextH1 style={{marginTop:0}}>Person: {person.name}</TextH1>
+			<TextH1 style={{marginTop:0}}>Edit: {nameOriginal}</TextH1>
 
 			<View style={Styles.form}>
 
@@ -112,17 +117,17 @@ export default function ViewPersonScreen(props) {
 
 					<View style={Styles.formRow}>
 						<TextLabel>Name:</TextLabel>
-						<TextParagraph>{person.name}</TextParagraph>
+						<TextInput value={name} onChangeText={setName} style={Styles.textInput} />
 					</View>
 
 					<View style={Styles.formRow}>
 						<TextLabel>Phone:</TextLabel>
-						<TextParagraph>{person.phone}</TextParagraph>
+						<TextInput value={phone} onChangeText={setPhone} style={Styles.textInput} />
 					</View>
 
 					<View style={Styles.formRow}>
 						<TextLabel>Department:</TextLabel>
-						<TextParagraph>{person.department?.name ?? "---"}</TextParagraph>
+						<TextInput value={departmentId} onChangeText={setDepartmentId} style={Styles.textInput} />
 					</View>
 				</View>
 
@@ -131,27 +136,27 @@ export default function ViewPersonScreen(props) {
 
 					<View style={Styles.formRow}>
 						<TextLabel>Street:</TextLabel>
-						<TextParagraph>{person.street}</TextParagraph>
+						<TextInput value={street} onChangeText={setStreet} style={Styles.textInput} />
 					</View>
 
 					<View style={Styles.formRow}>
 						<TextLabel>City:</TextLabel>
-						<TextParagraph>{person.city}</TextParagraph>
+						<TextInput value={city} onChangeText={setCity} style={Styles.textInput} />
 					</View>
 
 					<View style={Styles.formRow}>
 						<TextLabel>State:</TextLabel>
-						<TextParagraph>{person.state}</TextParagraph>
+						<TextInput value={state} onChangeText={setState} style={Styles.textInput} />
 					</View>
 
 					<View style={Styles.formRow}>
 						<TextLabel>ZIP:</TextLabel>
-						<TextParagraph>{person.zip}</TextParagraph>
+						<TextInput value={zip} onChangeText={setZip} style={Styles.textInput} />
 					</View>
 
 					<View style={Styles.formRow}>
 						<TextLabel>Country:</TextLabel>
-						<TextParagraph>{person.country}</TextParagraph>
+						<TextInput value={country} onChangeText={setCountry} style={Styles.textInput} />
 					</View>
 				</View>
 
@@ -159,16 +164,16 @@ export default function ViewPersonScreen(props) {
 
 			<View style={[Styles.personButtonContainer, {borderBottomWidth: 0, marginBottom: 0}]}>
 				<MyButton
-					text="Edit"
+					text="Save"
 					type="major"    // default*|major|minor
 					size="medium"      // small|medium*|large
-					onPress={showEditPerson}
+					//onPress={showViewPeople}
 				/>
 				<MyButton
-					text="Delete"
+					text="Cancel"
 					type="default"    // default*|major|minor
 					size="minor"      // small|medium*|large
-					onPress={deletePerson}
+					//onPress={deletePerson}
 				/>
         	</View>
 

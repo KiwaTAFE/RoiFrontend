@@ -49,6 +49,11 @@ export default function ViewPeopleScreen(props) {
 		props.navigation.navigate("ViewPerson", {id: person.id})
 	}
 
+	function showEditPerson(person) {
+		// Navigate to EditPerson and pass through the person's ID as a param
+		props.navigation.navigate("EditPerson", {id: person.id})
+	}
+
 	// Delete person
 	function deletePerson(person){
 
@@ -109,7 +114,7 @@ export default function ViewPeopleScreen(props) {
     	      				text="Edit"
     	       				type="default"    // default*|major|minor
     	       				size="small"      // small|medium*|large
-    	       				//onPress={refreshPersonList}
+							onPress={() => showEditPerson(p)}
 							buttonStyle={Styles.personListItemButton}
 							textStyle={Styles.personListItemButtonText}
 						/>

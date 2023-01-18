@@ -4,6 +4,7 @@ import * as React from 'react';
 // Import navigation and screens
 import ViewPeopleScreen from '../screens/ViewPeopleScreen';
 import ViewPersonScreen from '../screens/ViewPersonScreen';
+import EditPersonScreen from '../screens/EditPersonScreen';
 
 // Import styling and components
 import Styles from "../styles/MainStyle";
@@ -28,6 +29,10 @@ export default function PeopleNavigator() {
 				name="ViewPerson"
 				component={ViewPersonScreen}
 				options={{ title: 'View Person' }} />
+			<Stack.Screen
+				name="EditPerson"
+				component={EditPersonScreen}
+				options={{ title: 'Edit Person' }} />
 		</Stack.Navigator>
 	);
 }
