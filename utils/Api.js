@@ -191,12 +191,32 @@ async function handleFetchError(response) {
  * ADD YOUR API CALLING METHODS HERE
  */
 
+export function RoiGetDepartments() {
+
+    // Call API endpoint: GET /Departments
+    return getRequest(`${apiUrl}/Departments`)
+        .then(response => {
+            // If request/response is successful, return JSON data
+            return response;
+        })
+}
+
 export function RoiGetPeople() {
 
     // Call API endpoint: GET /People
     return getRequest(`${apiUrl}/People`)
         .then(response => {
-            // If request/respone is successful, return JSON data
+            // If request/response is successful, return JSON data
+            return response;
+        })
+}
+
+export function RoiGetPerson() {
+
+    // Call API endpoint: GET /People/{id}
+    return getRequest(`${apiUrl}/People/${id}`)
+        .then(response => {
+            // If request/response is successful, return JSON data
             return response;
         })
 }
@@ -206,7 +226,27 @@ export function RoiDeletePerson(id) {
     // Call API endpoint: DELETE /People/{id}
     return deleteRequest(`${apiUrl}/People/${id}`, {id})
         .then(response => {
-            // If request/respone is successful, return true
+            // If request/response is successful, return true
+            return true;
+        })
+}
+
+export function RoiAddPerson(name, phone, departmentId, street, city, state, zip, country) {
+
+    // Call API endpoint: POST /People/
+    return postRequest(`${apiUrl}/People`, {name, phone, departmentId, street, city, state, zip, country})
+        .then(response => {
+            // If request/response is successful, return JSON data
+            return response;
+        })
+}
+
+export function RoiEditPerson(id, name, phone, departmentId, street, city, state, zip, country) {
+
+    // Call API endpoint: PUT /People/{id}
+    return putRequest(`${apiUrl}/People`, {id, name, phone, departmentId, street, city, state, zip, country})
+        .then(response => {
+            // If request/response is successful, return JSON true (no data in response)
             return true;
         })
 }
