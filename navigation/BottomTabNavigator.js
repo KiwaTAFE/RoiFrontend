@@ -8,6 +8,8 @@ import Styles from "../styles/MainStyle";
 
 // Import navigators & screens
 import HomeScreen from '../screens/HomeScreen';
+import ViewStaffScreen from '../screens/ViewStaffScreen';
+//import AddStaffScreen from '../screens/AddStaffScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
 
@@ -37,7 +39,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       />
       <BottomTab.Screen
         name="View Staff"
-        component={SettingsScreen}
+        component={ViewStaffScreen}
         options={{
           title: 'View Staff',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-people" />,
