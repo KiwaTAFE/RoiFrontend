@@ -215,9 +215,21 @@ export default StyleSheet.create({
         marginHorizontal: 10,
         paddingHorizontal: 10,
     },
+    
+    // SETTINGS  SCREEN
+    
+    settingsButtonContainer: {
+        flexDirection: "row",
+        justifyContent: "flex-start",
+        paddingVertical: 15,
+        paddingHorizontal: 5,
+    },
 
+    settingsButton: {
+        marginHorizontal: 10,
+    },
 
-    // HELP SCREEN
+    
 
     
     

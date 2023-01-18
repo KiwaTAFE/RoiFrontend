@@ -8,7 +8,7 @@ import Styles from "../styles/MainStyle";
 
 // Import navigators & screens
 import HomeScreen from '../screens/HomeScreen';
-import HelpScreen from '../screens/HelpScreen';
+import SettingsScreen from '../screens/SettingsScreen';
 
 
 const BottomTab = createBottomTabNavigator();
@@ -37,7 +37,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       />
       <BottomTab.Screen
         name="View Staff"
-        component={HelpScreen}
+        component={SettingsScreen}
         options={{
           title: 'View Staff',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-people" />,
@@ -45,7 +45,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       />
       <BottomTab.Screen
         name="Add staff"
-        component={HelpScreen}
+        component={SettingsScreen}
         options={{
           title: 'Add staff',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-add" />,
@@ -53,7 +53,7 @@ export default function BottomTabNavigator({ navigation, route }) {
       />
       <BottomTab.Screen
         name="Settings"
-        component={HelpScreen}
+        component={SettingsScreen}
         options={{
           title: 'Settings',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-settings" />,

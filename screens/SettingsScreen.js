@@ -4,13 +4,28 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 // Import helper code
 import Settings from '../constants/Settings';
+import Colours from '../constants/Colours';
 
 // Import styling and components
 import { TextParagraph, TextH1, TextH2, TextH3, TextListItem } from "../components/StyledText";
 import Styles from "../styles/MainStyle";
-import Colours from '../constants/Colours';
+import { MyButton } from '../components/MyButton';
 
-export default function HelpScreen(props) {
+export default function SettingsScreen(props) {
+
+  // State management
+
+  // Create state variable for the font size (default to the value set in the Settings.js file)
+  const [fontSizeModifier, setfontSizeModifier] = React.useState(Settings.fontSizeModifier);
+
+  function changeFontSize(sizeModifier) {
+    Settings.fontSizeModifier += sizeModifier;
+
+    if (Settings.fontSizeModifier < 0.5){ Settings.fontSizeModifier = 0.5;}
+    if (Settings.fontSizeModifier > 2){ Settings.fontSizeModifier = 2;}
+
+    setfontSizeModifier(Settings.fontSizeModifier)
+  }
 
   return (
     <SafeAreaView style={Styles.safeAreaView}>
@@ -19,6 +34,29 @@ export default function HelpScreen(props) {
         <View>
           
           <TextH1 style={{marginTop:0}}>Help topics</TextH1>
+
+          <TextH2>Change settings</TextH2>
+
+          <TextParagraph>Here are some basic settings to make the app more comfortable to use.</TextParagraph>
+
+          <TextH3>Font size</TextH3>
+
+          <View style={Styles.settingsButtonContainer}>
+          <MyButton
+            text="- Smaller"
+            type="default"    // default*|major|minor
+            size="medium"      // small|medium*|large
+            onPress={() => changeFontSize(-0.1)}
+            buttonStyle={Styles.settingsButton}
+            />
+          <MyButton
+            text="+ Bigger"
+            type="default"    // default*|major|minor
+            size="medium"      // small|medium*|large
+            onPress={() => changeFontSize(0.1)}
+            buttonStyle={Styles.homeButton}
+          />
+        </View>
 
           <TextH2>Sample content</TextH2>
 
