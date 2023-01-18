@@ -8,9 +8,12 @@ import Styles from "../styles/MainStyle";
 
 // Import navigators & screens
 import HomeScreen from '../screens/HomeScreen';
-import ViewStaffScreen from '../screens/ViewStaffScreen';
-//import AddStaffScreen from '../screens/AddStaffScreen';
+import ViewPeopleScreen from '../screens/ViewPeopleScreen';
+import ViewPersonScreen from '../screens/ViewPersonScreen';
+
+//import AddPersonScreen from '../screens/AddPersonScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import PeopleNavigator from './PeopleNavigator';
 
 
 const BottomTab = createBottomTabNavigator();
@@ -38,18 +41,18 @@ export default function BottomTabNavigator({ navigation, route }) {
         }}
       />
       <BottomTab.Screen
-        name="View Staff"
-        component={ViewStaffScreen}
+        name="ViewPeople"
+        component={PeopleNavigator}
         options={{
-          title: 'View Staff',
+          title: 'View People',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-people" />,
         }}
       />
       <BottomTab.Screen
-        name="Add staff"
-        component={SettingsScreen}
+        name="AddPerson"
+        component={PeopleNavigator}
         options={{
-          title: 'Add staff',
+          title: 'Add Person',
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-add" />,
         }}
       />

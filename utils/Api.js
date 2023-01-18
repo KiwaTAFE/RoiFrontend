@@ -211,7 +211,7 @@ export function RoiGetPeople() {
         })
 }
 
-export function RoiGetPerson() {
+export function RoiGetPerson(id) {
 
     // Call API endpoint: GET /People/{id}
     return getRequest(`${apiUrl}/People/${id}`)

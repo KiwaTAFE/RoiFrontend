@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Import helper code
 import Settings from '../constants/Settings';
-import { RoiDeletePerson, RoiGetPeople } from '../utils/Api';
+import { RoiDeletePerson, RoiGetPeople, RoiGetPerson } from '../utils/Api';
 import { PopupOk, PopupOkCancel } from '../utils/Popup';
 
 // Import styling and components
@@ -12,32 +12,52 @@ import { TextParagraph, TextH1, TextH2 } from '../components/StyledText';
 import Styles from '../styles/MainStyle';
 import { MyButton } from '../components/MyButton';
 
-export default function ViewPeopleScreen(props) {
+export default function ViewPersonScreen(props) {
+
+	// Set up a default Person object
+	const personTemplate = {
+		id: 0,
+		name: "DEFAULT",
+		phone: "",
+		departmentId: "",
+		street: "",
+		city: "",
+		state: "",
+		zip: "",
+		country: "",
+		department: null
+	};
 
 	// State - data for this component
 
-	// Data array, default to empty array
-	const [people, setPeople] = React.useState([])
+	// Store person in state
+	const [person, setPerson] = React.useState(personTemplate)
 
 	// Set "effect" to retrieve and store data - only run on mount/unmount (loaded/unloaded)
 	// "effectful" code is something that triggers a UI re-render
-	React.useEffect(refreshPersonList, [])
+	React.useEffect(refreshPerson, [])
 
-	// Refresh the person list data - call the API
-	function refreshPersonList() {
+	// Refresh the person data - call the API
+	function refreshPerson() {
 
-		console.log("refresh person list");
+		// Get person ID passed to this screen (via props)
+		const id = props.route.params.id
 
 		// Get data from the API
-		RoiGetPeople()
+		RoiGetPerson(id)
 		  // Success
 		  .then(data => {
-			// Store results in state variable
-			setPeople(data)
+			// Store results in state variable (if data returned)
+			if (data) setPerson(data)
 		  })
 		  // Error
 		  .catch(error => {
-			PopupOk("API Error", "Could not get people from the server")
+
+			// Display error and navigate back to ViewPeople screen
+			PopupOk("API Error", "Could not get person from the server")
+
+			// OPTIONAL: Navigate back to the view people screen
+			props.navigation.navigate("ViewPeople")
 		  })
 	}
 
@@ -128,31 +148,11 @@ export default function ViewPeopleScreen(props) {
 	// Main output of the screen component
 	return (
 	<SafeAreaView style={Styles.safeAreaView}>
+		<ScrollView style={Styles.container} contentContainerStyle={Styles.contentContainer}>
 
-			<View style={Styles.personButtonContainer}>
-    	      <MyButton
-    	        text="+ Add new person"
-    	        type="major"    // default*|major|minor
-    	        size="small"      // small|medium*|large
-    	        //onPress={showAddStaff}
-    	        />
-    	      <MyButton
-    	        text="Refresh"
-    	        type="default"    // default*|major|minor
-    	        size="small"      // small|medium*|large
-    	        onPress={refreshPersonList}
-    	      />
-			</View>
+				<TextH1 style={{marginTop:0}}>Person: {person.name}</TextH1>
 
-			<ScrollView style={Styles.container} contentContainerStyle={Styles.contentContainer}>
-
-				<TextH1 style={{marginTop:0}}>Listing all people</TextH1>
-
-				<View style={Styles.personList}>
-					{displayPeople()}
-				</View>
-
-			</ScrollView>
-		</SafeAreaView>
+		</ScrollView>
+	</SafeAreaView>
 	)
 }

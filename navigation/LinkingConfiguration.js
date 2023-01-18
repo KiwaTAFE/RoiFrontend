@@ -8,10 +8,24 @@ export default {
         path: '/',
         screens: {
           Home: 'home',
-          Help: 'help',
+          People: {
+            path: 'people',
+            screens: {
+              ViewPeople: 'view-all',
+              ViewPerson: 'view',
+              EditPerson: 'edit',
+            },
+          },
+          AddPerson: 'people/add',
+          Settings: 'settings',
         },
       },
       NotFound: '*', // catch-all route (404 resource not found)
     },
   },
 };
+
+// PATH:  /people/view-all
+// PATH:  /people/view
+// PATH:  /people/edit
+// PATH:  /people/add

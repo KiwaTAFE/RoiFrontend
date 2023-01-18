@@ -25,8 +25,8 @@ export default function HomeScreen(props) {
     props.navigation.replace('Root', {screen: 'Settings'});
   }
 
-  function showViewStaff() {
-    props.navigation.replace('Root', {screen: 'viewStaff'});
+  function showViewPeople() {
+    props.navigation.replace('Root', {screen: 'People'});
   }
 
   return (
@@ -52,12 +52,12 @@ export default function HomeScreen(props) {
         
         <View style={Styles.homeButtonContainer}>
           <MyButton
-            text="View staff"
+            text="View People"
             type="major"    // default*|major|minor
             size="large"      // small|medium*|large
-            onPress={showViewStaff}
+            onPress={showViewPeople}
             buttonStyle={Styles.homeButton}
-            />
+          />
           <MyButton
             text="Show settings"
             type="default"    // default*|major|minor
