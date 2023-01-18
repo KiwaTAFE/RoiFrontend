@@ -23,28 +23,28 @@ export default StyleSheet.create({
     bodyText: {
         marginVertical: 5,
         fontSize: 17,
-        color: '#2F4F4F',  // COLOUR: dark grey
+        color: Colours.roiCharcoal,  // COLOUR: dark grey
         lineHeight: 24,
     },
     h1: {
         marginTop: 30,
         marginBottom: 5,
         fontSize: 30,
-        color: '#008B8B',  // COLOUR: primary colour 1
+        color: Colours.roiRed,  // COLOUR: primary colour 1
         lineHeight: 35,
     },
     h2: {
         marginTop: 20,
         marginBottom: 5,
         fontSize: 24,
-        color: '#20B2AA',  // COLOUR: primary colour 2
+        color: Colours.roiCharcoal,  // COLOUR: primary colour 2
         lineHeight: 24,
     },
     h3: {
         marginTop: 10,
         marginBottom: 5,
         fontSize: 20,
-        color: '#778899',  // COLOUR: medium grey
+        color: Colours.roiMidGrey,  // COLOUR: medium grey
         lineHeight: 25,
     },
     listItem: {
@@ -63,7 +63,7 @@ export default StyleSheet.create({
     button: {
         paddingVertical: 13,
         paddingHorizontal: 26,
-        backgroundColor: '#778899',  // COLOUR: medium grey
+        backgroundColor: Colours.roiMidGrey,  // COLOUR: medium grey
         borderRadius: 5,
     },
     buttonText: {
@@ -72,16 +72,16 @@ export default StyleSheet.create({
         textAlign: 'center',
     },
     buttonMajor: {
-        backgroundColor: '#008B8B',  // COLOUR: primary colour 1
+        backgroundColor: Colours.roiRed,  // COLOUR: primary colour 1
     },
     buttonMajorText: {
         color: 'white',
     },
     buttonMinor: {
-        backgroundColor: '#C0C0C0',  // COLOUR: light grey
+        backgroundColor: Colours.roiLightGrey,  // COLOUR: light grey
     },
     buttonMinorText: {
-        color: '#2F4F4F',  // COLOUR: dark grey
+        color: Colours.roiCharcoal,  // COLOUR: dark grey
     },
     buttonSmall: {
         paddingVertical: 5,
@@ -106,7 +106,7 @@ export default StyleSheet.create({
         paddingBottom: 10,
         paddingHorizontal: 15,
         borderWidth: 1,
-        borderColor: '#C0C0C0',  // COLOUR: light grey
+        borderColor: Colours.roiLightGrey,  // COLOUR: light grey
         borderRadius: 5,
     },
     legend: {
@@ -116,7 +116,7 @@ export default StyleSheet.create({
         margin: 0,
         paddingHorizontal: 5,
         paddingVertical: 0,
-        color: '#1E90FF',  // COLOUR: main secondary colour
+        color: Colours.roiBurntOrange,  // COLOUR: main secondary colour
         backgroundColor: 'white',
     },
     formRow: {
@@ -138,7 +138,7 @@ export default StyleSheet.create({
         paddingVertical: 2,
         paddingHorizontal: 4,
         borderWidth: 1,
-        borderColor: '#C0C0C0',  // COLOUR: light grey
+        borderColor: Colours.roiLightGrey,  // COLOUR: light grey
         borderRadius: 3,
     },
     picker: {
@@ -149,7 +149,7 @@ export default StyleSheet.create({
         paddingVertical: 2,
         paddingHorizontal: 4,
         borderWidth: 1,
-        borderColor: '#C0C0C0',  // COLOUR: light grey
+        borderColor: Colours.roiLightGrey,  // COLOUR: light grey
         borderRadius: 3,
     },
     pickerItem: {
@@ -162,24 +162,59 @@ export default StyleSheet.create({
         backgroundColor: 'white',
     },
     headerBarTitle: {
-        color: '#008B8B',  // COLOUR: primary colour 1
+        color: Colours.roiRed,  // COLOUR: primary colour 1
         textAlign: 'left',
     },
 
     // FOOTER NAVIGATION
 
     navBar: {
-        backgroundColor: '#2F4F4F',  // COLOUR: dark grey
+        backgroundColor: Colours.roiCharcoal,  // COLOUR: dark grey
     },
     navBarIcon: {
-        marginBottom: -5
+        marginBottom: -5,
     },
     navBarLabel: {
-        marginBottom: 3
+        marginBottom: 3,
     },
 
     // HOME SCREEN
 
+    homeLogoContainer: {
+        alignItems: "center",
+        marginTop: 20,
+        marginBottom: 40,
+    },
+
+    homeLogo: {
+        width: 300,
+        height: 150,
+        resizeMode: "contain",
+    },
+
+    homeHeadingContainer: {
+        alignItems: "center",
+        marginHorizontal: 50,
+        marginBottom: 30,
+    },
+
+    homeHeading: {
+        fontSize: 40,
+        lineHeight: 45,
+        textAlign: "center",
+        color: Colours.roiRed,
+    },
+
+    homeButtonContainer: {
+        flexDirection: "row",
+        justifyContent: "center",
+    },
+
+    homeButton: {
+        flex: 1,
+        marginHorizontal: 10,
+        paddingHorizontal: 10,
+    },
 
 
     // HELP SCREEN

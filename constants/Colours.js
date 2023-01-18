@@ -13,9 +13,9 @@ const myColours = {
 
 // Export all the colours used by the app
 export default {
-  tabBar:           myColours.colour2,
+  tabBar:           myColours.roiCharcoal,
   tabIcon:          'white',
-  tabIconSelected:  myColours.colour1,
+  tabIconSelected:  myColours.roiBurntOrange,
   tabLabel:          'white',
   tabLabelSelected:  myColours.colour1,
   errorBackground:  'red',
@@ -24,4 +24,12 @@ export default {
   warningText:      '#666804',
   noticeBackground: myColours.colour2,
   noticeText:       '#fff',
+  roiRed:           myColours.roiRed,
+  roiCharcoal:      myColours.roiCharcoal,
+  roiGrey:          myColours.roiGrey,
+  roiWhite:         myColours.roiWhite,
+  roiBurntOrange:   myColours.roiBurntOrange,
+  roiLightOrange:   myColours.roiLightOrange,
+  roiMidGrey:       myColours.roiMidGrey,
+  roiLightGrey:     myColours.roiLightGrey,
 };

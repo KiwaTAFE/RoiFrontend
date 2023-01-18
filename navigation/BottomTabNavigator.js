@@ -36,11 +36,27 @@ export default function BottomTabNavigator({ navigation, route }) {
         }}
       />
       <BottomTab.Screen
-        name="Help"
+        name="View Staff"
         component={HelpScreen}
         options={{
-          title: 'Help',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-help-circle" />,
+          title: 'View Staff',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-people" />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Add staff"
+        component={HelpScreen}
+        options={{
+          title: 'Add staff',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-add" />,
+        }}
+      />
+      <BottomTab.Screen
+        name="Settings"
+        component={HelpScreen}
+        options={{
+          title: 'Settings',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-settings" />,
         }}
       />
     </BottomTab.Navigator>
