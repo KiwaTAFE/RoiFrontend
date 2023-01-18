@@ -41,7 +41,7 @@ export default function BottomTabNavigator({ navigation, route }) {
         }}
       />
       <BottomTab.Screen
-        name="ViewPeople"
+        name="People"
         component={PeopleNavigator}
         options={{
           title: 'View People',

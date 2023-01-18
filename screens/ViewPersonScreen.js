@@ -8,7 +8,7 @@ import { RoiDeletePerson, RoiGetPeople, RoiGetPerson } from '../utils/Api';
 import { PopupOk, PopupOkCancel } from '../utils/Popup';
 
 // Import styling and components
-import { TextParagraph, TextH1, TextH2 } from '../components/StyledText';
+import { TextParagraph, TextH1, TextH2, TextLabel } from '../components/StyledText';
 import Styles from '../styles/MainStyle';
 import { MyButton } from '../components/MyButton';
 
@@ -66,13 +66,12 @@ export default function ViewPersonScreen(props) {
 	}
 
 	// Delete person
-	function deletePerson(person){
+	function deletePerson(){
 
 		// Check if person should be deleted (confirm with user)
 		PopupOkCancel(
 			"Delete person?",
 			`Are you sure you want to delete ${person.name}?`,
-
 
 			// Ok - delete the person
 			() => {
@@ -83,8 +82,8 @@ export default function ViewPersonScreen(props) {
 						// Show confirmation that the person has been deleted
 						PopupOk("Person deleted", `${person.name} has been deleted.`);
 						
-						// Refresh the person list
-						refreshPersonList();
+						// Go back to the person list (ViewPeople)
+						props.navigation.replace("Root", {screen: "People"});
 						
 					})
 					.catch(error => {
@@ -99,58 +98,79 @@ export default function ViewPersonScreen(props) {
 		)
 	}
 
-
-	// Display all people data
-	function displayPeople() {
-
-		// Loopp through each item and turn into appropriate output and then return the result
-		return people.map(p => {
-
-			// Create an output view for each item
-			return (
-				<View key={p.id} style={Styles.personListItem}>
-					<View style={Styles.personListItemDetails}>
-					<TextParagraph style={Styles.personListItemName}>{p.name}</TextParagraph>
-					<TextParagraph style={Styles.personListItemText}>{p.department?.name ?? "---"}</TextParagraph>
-					<TextParagraph style={Styles.personListItemText}>{p.phone}</TextParagraph>
-					</View>
-					<View style={Styles.personListItemButtons}>
-						<MyButton
-    	      				text="Info"
-    	       				type="major"    // default*|major|minor
-    	       				size="small"      // small|medium*|large
-    	       				//onPress={refreshPersonList}
-							buttonStyle={Styles.personListItemButton}
-							textStyle={Styles.personListItemButtonText}
-						/>
-						<MyButton
-    	      				text="Edit"
-    	       				type="default"    // default*|major|minor
-    	       				size="small"      // small|medium*|large
-    	       				//onPress={refreshPersonList}
-							buttonStyle={Styles.personListItemButton}
-							textStyle={Styles.personListItemButtonText}
-						/>
-						<MyButton
-    	      				text="Delete"
-							type="minor"    // default*|major|minor
-							size="small"      // small|medium*|large
-							onPress={() => deletePerson(p)}
-							buttonStyle={Styles.personListItemButton}
-							textStyle={Styles.personListItemButtonText}
-    	      			/>
-					</View>
-				</View>
-			)
-		})
-	}
-
 	// Main output of the screen component
 	return (
 	<SafeAreaView style={Styles.safeAreaView}>
 		<ScrollView style={Styles.container} contentContainerStyle={Styles.contentContainer}>
 
-				<TextH1 style={{marginTop:0}}>Person: {person.name}</TextH1>
+			<TextH1 style={{marginTop:0}}>Person: {person.name}</TextH1>
+
+			<View style={Styles.form}>
+
+				<View style={Styles.fieldSet}>
+					<TextParagraph style={Styles.legend}>Details</TextParagraph>
+
+					<View style={Styles.formRow}>
+						<TextLabel>Name:</TextLabel>
+						<TextParagraph>{person.name}</TextParagraph>
+					</View>
+
+					<View style={Styles.formRow}>
+						<TextLabel>Phone:</TextLabel>
+						<TextParagraph>{person.phone}</TextParagraph>
+					</View>
+
+					<View style={Styles.formRow}>
+						<TextLabel>Department:</TextLabel>
+						<TextParagraph>{person.department?.name ?? "---"}</TextParagraph>
+					</View>
+				</View>
+
+				<View style={Styles.fieldSet}>
+					<TextParagraph style={Styles.legend}>Address</TextParagraph>
+
+					<View style={Styles.formRow}>
+						<TextLabel>Street:</TextLabel>
+						<TextParagraph>{person.street}</TextParagraph>
+					</View>
+
+					<View style={Styles.formRow}>
+						<TextLabel>City:</TextLabel>
+						<TextParagraph>{person.city}</TextParagraph>
+					</View>
+
+					<View style={Styles.formRow}>
+						<TextLabel>State:</TextLabel>
+						<TextParagraph>{person.state}</TextParagraph>
+					</View>
+
+					<View style={Styles.formRow}>
+						<TextLabel>ZIP:</TextLabel>
+						<TextParagraph>{person.zip}</TextParagraph>
+					</View>
+
+					<View style={Styles.formRow}>
+						<TextLabel>Country:</TextLabel>
+						<TextParagraph>{person.country}</TextParagraph>
+					</View>
+				</View>
+
+			</View>
+
+			<View style={Styles.personButtonContainer}>
+				<MyButton
+					text="Edit"
+					type="major"    // default*|major|minor
+					size="medium"      // small|medium*|large
+					//onPress={showViewPeople}
+				/>
+				<MyButton
+					text="Delete"
+					type="default"    // default*|major|minor
+					size="minor"      // small|medium*|large
+					onPress={deletePerson}
+				/>
+        	</View>
 
 		</ScrollView>
 	</SafeAreaView>
