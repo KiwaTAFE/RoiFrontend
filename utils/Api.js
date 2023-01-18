@@ -200,3 +200,13 @@ export function RoiGetPeople() {
             return response;
         })
 }
+
+export function RoiDeletePerson(id) {
+
+    // Call API endpoint: DELETE /People/{id}
+    return deleteRequest(`${apiUrl}/People/${id}`, {id})
+        .then(response => {
+            // If request/respone is successful, return true
+            return true;
+        })
+}

@@ -4,8 +4,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Import helper code
 import Settings from '../constants/Settings';
-import { RoiGetPeople } from '../utils/Api';
-import { PopupOk, PopupOK } from '../utils/Popup';
+import { RoiDeletePerson, RoiGetPeople } from '../utils/Api';
+import { PopupOk, PopupOkCancel } from '../utils/Popup';
 
 // Import styling and components
 import { TextParagraph, TextH1, TextH2 } from '../components/StyledText';
@@ -45,6 +45,41 @@ export default function ViewPeopleScreen(props) {
 		console.log("show add person...");
 	}
 
+	// Delete person
+	function deletePerson(person){
+
+		// Check if person should be deleted (confirm with user)
+		PopupOkCancel(
+			"Delete person?",
+			`Are you sure you want to delete ${person.name}?`,
+
+
+			// Ok - delete the person
+			() => {
+				// Delete the person using the API
+				RoiDeletePerson(person.id)
+					.then(data => {
+						
+						// Show confirmation that the person has been deleted
+						PopupOk("Person deleted", `${person.name} has been deleted.`);
+						
+						// Refresh the person list
+						refreshPersonList();
+						
+					})
+					.catch(error => {
+
+						// Display error to user
+						PopupOk("Error", error)
+					});
+			},
+
+			// Cancel - do nothing
+			() => {}
+		)
+	}
+
+
 	// Display all people data
 	function displayPeople() {
 
@@ -80,7 +115,7 @@ export default function ViewPeopleScreen(props) {
     	      				text="Delete"
 							type="minor"    // default*|major|minor
 							size="small"      // small|medium*|large
-							//onPress={refreshPersonList}
+							onPress={() => deletePerson(p)}
 							buttonStyle={Styles.personListItemButton}
 							textStyle={Styles.personListItemButtonText}
     	      			/>
