@@ -229,8 +229,54 @@ export default StyleSheet.create({
         marginHorizontal: 10,
     },
 
-    
+    // VIEW PEOPLE SCREEN
 
+    personButtonContainer: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginBottom: 10,
+        padding: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: "#ccc",
+    },
+
+    personList: {
+    },
     
+    personListItem: {
+        flexDirection: "row",
+        paddingVertical: 15,
+        paddingHorizontal: 5,
+        borderBottomWidth: 2,
+        borderBottomColor: Colours.roiLightGrey,
+    },
+
+    personListItemDetails: {
+        flex: 2,
+    },
+
+    personListItemName: {
+        fontSize: 22,
+        marginTop: 2,
+    },
+
+    personListItemText: {
+        fontSize: 15,
+        marginVertical: 3,
+        marginLeft: 10,
+    },
     
+    personListItemButtons: {
+        flex: 1,
+        paddingLeft: 10,
+    },
+
+    personListItemButton: {
+        marginVertical: 2,
+        paddingVertical: 4,
+    },
+
+    personListItemButtonText: {
+        fontSize: 14,
+    },
 });
