@@ -11,7 +11,6 @@ import { PopupOk, PopupOkCancel } from '../utils/Popup';
 import { TextParagraph, TextH1, TextH2 } from '../components/StyledText';
 import Styles from '../styles/MainStyle';
 import { MyButton } from '../components/MyButton';
-import PeopleNavigator from '../navigation/PeopleNavigator';
 
 export default function ViewPeopleScreen(props) {
 
@@ -41,7 +40,8 @@ export default function ViewPeopleScreen(props) {
 	}
 
 	function showAddPerson() {
-		console.log("show add person...");
+		// Navigate to AddPerson screen
+		props.navigation.replace("Root", {screen: "AddPerson"})
 	}
 	
 	function showViewPerson(person) {
@@ -141,7 +141,7 @@ export default function ViewPeopleScreen(props) {
     	        text="+ Add new person"
     	        type="major"    // default*|major|minor
     	        size="small"      // small|medium*|large
-    	        //onPress={showAddPerson}
+    	        onPress={showAddPerson}
     	        />
     	      <MyButton
     	        text="Refresh"
