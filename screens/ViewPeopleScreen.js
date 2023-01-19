@@ -90,6 +90,9 @@ export default function ViewPeopleScreen(props) {
 	// Display all people data
 	function displayPeople() {
 
+		// Cancel if no people to display
+		if (!people) return
+
 		// Loop through each item and turn into appropriate output and then return the result
 		return people.map(p => {
 

@@ -17,7 +17,7 @@ export default function ViewPersonScreen(props) {
 	// Set up a default Person object
 	const personTemplate = {
 		id: 0,
-		name: "DEFAULT",
+		name: "Unavailable",
 		phone: "",
 		departmentId: "",
 		street: "",

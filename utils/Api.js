@@ -194,7 +194,7 @@ async function handleFetchError(response) {
 export function RoiGetDepartments() {
 
     // Call API endpoint: GET /Departments
-    return getRequest(`${apiUrl}/Departments`)
+    return getRequestWithCaching(`${apiUrl}/Departments`)
         .then(response => {
             // If request/response is successful, return JSON data
             return response;
@@ -204,7 +204,7 @@ export function RoiGetDepartments() {
 export function RoiGetPeople() {
 
     // Call API endpoint: GET /People
-    return getRequest(`${apiUrl}/People`)
+    return getRequestWithCaching(`${apiUrl}/People`)
         .then(response => {
             // If request/response is successful, return JSON data
             return response;
@@ -214,7 +214,7 @@ export function RoiGetPeople() {
 export function RoiGetPerson(id) {
 
     // Call API endpoint: GET /People/{id}
-    return getRequest(`${apiUrl}/People/${id}`)
+    return getRequestWithCaching(`${apiUrl}/People/${id}`)
         .then(response => {
             // If request/response is successful, return JSON data
             return response;
