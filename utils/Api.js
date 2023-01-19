@@ -241,10 +241,10 @@ export function RoiAddPerson(name, phone, departmentId, street, city, state, zip
         })
 }
 
-export function RoiEditPerson(id, name, phone, departmentId, street, city, state, zip, country) {
+export function RoiUpdatePerson(id, name, phone, departmentId, street, city, state, zip, country) {
 
     // Call API endpoint: PUT /People/{id}
-    return putRequest(`${apiUrl}/People`, {id, name, phone, departmentId, street, city, state, zip, country})
+    return putRequest(`${apiUrl}/People/${id}`, {id, name, phone, departmentId, street, city, state, zip, country})
         .then(response => {
             // If request/response is successful, return JSON true (no data in response)
             return true;

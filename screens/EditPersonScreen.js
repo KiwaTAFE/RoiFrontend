@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Import helper code
 import Settings from '../constants/Settings';
-import { RoiDeletePerson, RoiGetPerson } from '../utils/Api';
+import { RoiGetDepartments, RoiGetPerson, RoiUpdatePerson } from '../utils/Api';
 import { PopupOk, PopupOkCancel } from '../utils/Popup';
 
 // Import styling and components
@@ -19,7 +19,6 @@ export default function EditPersonScreen(props) {
 	// Store person in state
 	const [id, setId] = React.useState(-1);
 	const [name, setName] = React.useState("");
-	const [nameOriginal, setNameOriginal] = React.useState("");
 	const [phone, setPhone] = React.useState("");
 	const [departmentId, setDepartmentId] = React.useState(0);
 	const [street, setStreet] = React.useState("");
@@ -27,10 +26,33 @@ export default function EditPersonScreen(props) {
 	const [state, setState] = React.useState("");
 	const [zip, setZip] = React.useState("");
 	const [country, setCountry] = React.useState("");
+	
+	const [nameOriginal, setNameOriginal] = React.useState("");
 
+	// Store the list of departments (picker/dropdown list)
+	const [departments, setDepartments] = React.useState([])
+
+	
 	// Set "effect" to retrieve and store data - only run on mount/unmount (loaded/unloaded)
 	// "effectful" code is something that triggers a UI re-render
 	React.useEffect(refreshPerson, [])
+	React.useEffect(refreshDepartments, [])
+
+	// Refresh the departments data - call the API
+	function refreshDepartments() {
+
+		// Get data from the API
+		RoiGetDepartments()
+		  // Success
+		  .then(data => {
+			// Store results in state variable
+			setDepartments(data)
+		  })
+		  // Error
+		  .catch(error => {
+			PopupOk("API Error", "Could not get departments from the server")
+		  })
+	}
 
 	// Refresh the person data - call the API
 	function refreshPerson() {
@@ -46,13 +68,14 @@ export default function EditPersonScreen(props) {
 			if (p) {
 				setId(p.id);
 				setName(p.name);
-				setNameOriginal(p.name);
-				setDepartmentId(p.departmentId);
+				setPhone(p.phone);
+				setDepartmentId(p.departmentId ?? 0);
 				setStreet(p.street);
 				setCity(p.city);
 				setState(p.state);
 				setZip(p.zip);
 				setCountry(p.country);
+				setNameOriginal(p.name);
 			}
 		  })
 		  // Error
@@ -66,41 +89,37 @@ export default function EditPersonScreen(props) {
 		  })
 	}
 
-	function showAddPerson() {
-		console.log("show add person...");
+	function showViewPeople() {
+		props.navigation.replace("Root", {screen: "People"});
 	}
 
-	// Save person
-	function deletePerson(){
+	// Edit a person in the database
+	function editPerson(){
 
-		// Check if person should be deleted (confirm with user)
-		PopupOkCancel(
-			"Delete person?",
-			`Are you sure you want to delete ${person.name}?`,
+		// Update the person using the API
+		RoiUpdatePerson(id, name, phone, departmentId, street, city, state, zip, country)
+			.then(data => {
+				
+				// Show confirmation that the person has been updated
+				PopupOk("Person edited", `${nameOriginal} has been updated.`);
+				
+				// Go back to the person list (ViewPeople)
+				props.navigation.replace("Root", {screen: "People"});
+				
+			})
+			.catch(error => {
 
-			// Ok - delete the person
-			() => {
-				// Delete the person using the API
-				RoiDeletePerson(person.id)
-					.then(data => {
-						
-						// Show confirmation that the person has been deleted
-						PopupOk("Person deleted", `${person.name} has been deleted.`);
-						
-						// Go back to the person list (ViewPeople)
-						props.navigation.replace("Root", {screen: "People"});
-						
-					})
-					.catch(error => {
+				// Display error to user
+				PopupOk("Error", error)
+			});
+	}
 
-						// Display error to user
-						PopupOk("Error", error)
-					});
-			},
-
-			// Cancel - do nothing
-			() => {}
-		)
+	// Display the department picker list items
+	function displayDepartmentListItems(){
+		// Loop through each department and turn into a <Picker.Item>
+		return departments.map(d => {
+			return <Picker.Item key={d.id} label={d.name} value={d.id} />
+		})
 	}
 
 	// Main output of the screen component
@@ -127,7 +146,14 @@ export default function EditPersonScreen(props) {
 
 					<View style={Styles.formRow}>
 						<TextLabel>Department:</TextLabel>
-						<TextInput value={departmentId} onChangeText={setDepartmentId} style={Styles.textInput} />
+						<Picker
+							selectedValue={departmentId}
+							onValueChange={setDepartmentId}
+							style={Styles.picker}
+							itemStyle={Styles.pickerItem}
+						>
+							{displayDepartmentListItems()}
+						</Picker>
 					</View>
 				</View>
 
@@ -167,13 +193,13 @@ export default function EditPersonScreen(props) {
 					text="Save"
 					type="major"    // default*|major|minor
 					size="medium"      // small|medium*|large
-					//onPress={showViewPeople}
+					onPress={editPerson}
 				/>
 				<MyButton
 					text="Cancel"
 					type="default"    // default*|major|minor
 					size="minor"      // small|medium*|large
-					//onPress={deletePerson}
+					onPress={showViewPeople}
 				/>
         	</View>
 
