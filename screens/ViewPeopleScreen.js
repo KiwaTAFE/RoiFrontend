@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { View, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { showMessage } from "react-native-flash-message";
+import NetInfo from "@react-native-community/netinfo"
 
 // Import helper code
 import Settings from '../constants/Settings';
@@ -87,8 +89,33 @@ export default function ViewPeopleScreen(props) {
 		)
 	}
 
+	// Display flash message banner if offline
+	function displayConnectionMessage(){
+
+		// Get network connection status
+		NetInfo.fetch().then(status => {
+
+			// Check if not connected to the internet
+			if (!status.isConnected) {
+
+				// Display the flash message
+				showMessage({
+					message: "No internet connection",
+					description: "You will only see cached data until \nyou have an active internet connection again.",
+					type: "warning",
+					duration: 5000,
+					floating: true,
+					icon: "warning",
+				})
+			}
+		})
+	}
+
 	// Display all people data
 	function displayPeople() {
+
+		// Display flash message when there's a connection issue
+		displayConnectionMessage();
 
 		// Cancel if no people to display
 		if (!people) return

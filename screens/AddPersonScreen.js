@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { View, ScrollView, TextInput, Picker } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { showMessage } from "react-native-flash-message";
+import NetInfo from "@react-native-community/netinfo"
 
 // Import helper code
 import Settings from '../constants/Settings';
@@ -53,8 +55,36 @@ export default function AddPersonScreen(props) {
 		props.navigation.replace("Root", {screen: "People"});
 	}
 
+	// Display flash message banner if offline
+	function displayConnectionMessage(){
+
+		// Get network connection status
+		NetInfo.fetch().then(status => {
+
+			// Check if not connected to the internet
+			if (!status.isConnected) {
+
+				// Display the flash message
+				showMessage({
+					message: "No internet connection",
+					description: "You can not add a new person until you have an active internet connection.",
+					type: "danger",
+					floating: true,
+					icon: "danger",
+					autoHide: false,
+				})
+			}
+		})
+	}
+
 	// Add a person in the database
-	function addPerson(){
+	async function addPerson(){
+
+		// Display flash message when there's a connection issue
+		displayConnectionMessage();
+
+		// Cancel if no internet connection
+		if (!(await NetInfo.fetch()).isConnected) return
 
 		// Add the person using the API
 		RoiAddPerson(name, phone, departmentId, street, city, state, zip, country)
